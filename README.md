@@ -12,7 +12,7 @@ A lightweight screenplay theme for Typora, intended for creating treatments than
 
 1. [Download](https://github.com/pranavgn/Typora-Screenplay-Theme) the zipped project package from Github.
 
-2. Copy the vercel.css file and vercel folder to your Typora theme library.
+2. Copy the screenplay.css file to your Typora theme library.
 
 3. Launch or restart Typora and choose Vercel from the theme menu.
 

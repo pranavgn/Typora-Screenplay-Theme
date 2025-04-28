@@ -14,7 +14,7 @@ A lightweight screenplay theme for Typora, intended for creating treatments than
 
 2. Copy the screenplay.css file to your Typora theme library.
 
-3. Launch or restart Typora and choose Vercel from the theme menu.
+3. Launch or restart Typora and choose Screenplay from the theme menu.
 
 ## Credits
 

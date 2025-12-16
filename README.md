@@ -34,10 +34,8 @@ Create scene headings using a single  `#`. They will automatically:
 **Markdown**
 
 ```
-# INT. COFFEE SHOP - DAY
+# INT. COFFEE SHOP - NIGHT
 ```
-
-![Scene Heading Example](./images/scene_heading.png)
 
 **Known Limitation:** Scene numbers only appear after you type at least one character into the heading. This is a limitation of how CSS counters work - they require actual text content to display. The scene number will appear as soon as you begin typing your scene heading.
 
@@ -48,10 +46,8 @@ Write action descriptions as regular paragraphs (no markdown formatting needed).
 **Markdown**
 
 ```
-John enters the coffee shop, looking nervous. He spots Mary at a corner table.
+Cold rainy night; shop is dark, save for a light at a single table. JOHN RICK bursts into the shop, breaking down the doors, pistol in his hand.
 ```
-
-![Action Example](./images/action.png)
 
 ### Character Names (h2)
 
@@ -66,8 +62,6 @@ Use  `##` for character names. They will automatically:
 ## JOHN
 ```
 
-![Character Name Example](./images/character.png)
-
 ### Dialogue (h3)
 
 Use  `###` for dialogue lines immediately after a character name. Dialogue will:
@@ -79,10 +73,8 @@ Use  `###` for dialogue lines immediately after a character name. Dialogue will:
 **Markdown**
 
 ```
-### I can't believe you're here.
+### Give me back my dog and car! You fools!
 ```
-
-![Dialogue Example](./images/dialogue.png)
 
 ### Parentheticals (h4)
 
@@ -95,10 +87,8 @@ Use  `####` for parentheticals (actor directions within dialogue). They will aut
 **Markdown**
 
 ```
-#### sarcastically
+#### shouting
 ```
-
-![Parenthetical Example](./images/parenthetical.png)
 
 ### Transitions (h5)
 
@@ -112,8 +102,6 @@ Use  `#####` for transitions (CUT TO, FADE OUT, etc.). They will automatically:
 ```
 ##### CUT TO:
 ```
-
-![Transition Example](./images/transition.png)
 
 ### Title Page (Blockquotes)
 
@@ -133,7 +121,7 @@ Use blockquotes (`>`) to create title page elements. They will automatically:
 > Your Name
 ```
 
-![Title Page Example](./images/title_page.png)
+![Title Page Example](./images/title.png)
 
 ### Page Breaks (Horizontal Rules)
 
@@ -144,8 +132,6 @@ Use  `---` to force a page break when needed.
 ```
 ---
 ```
-
-![Page Break Example](./images/page_break.png)
 
 ## Technical Specifications
 

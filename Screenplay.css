@@ -1,4 +1,5 @@
 /* Typora Screenplay Theme - Industry Standard Format */
+/* Updated for "Gutter" Page Numbers */
 
 /* =========================================================
    1. GLOBAL & SCREEN SETTINGS
@@ -17,15 +18,21 @@ body {
 /* Screen Simulation: Creates the visual "paper" in the editor */
 #write {
     max-width: none;
-    width: 8.5in;        /* Fixed width for screen only */
+    width: 8.5in;        /* Standard Letter Width */
     margin: 0 auto;
     padding-top: 1in;
     padding-bottom: 1in;
-    padding-left: 1.5in;
-    padding-right: 1.0in; /* Adjusted to standard screenplay right margin */
+    padding-left: 1.5in; /* Standard Left Margin */
+    
+    /* CHANGE: Reduced right padding to 0.5in. 
+       This keeps the "paper" edge further out, creating a visual "gutter"
+       on the right side where page numbers/scene numbers can sit 
+       without hitting the paper edge. */
+    padding-right: 0.5in; 
+    
     min-height: 11in;
     box-sizing: border-box;
-    background-color: white; /* Ensures white background on screen */
+    background-color: white;
 }
 
 /* Reset margins for all elements */
@@ -41,16 +48,23 @@ h1, h2, h3, h4, h5, h6, p, blockquote {
    2. ELEMENT STYLING (Screen & Print)
    ========================================================= */
 
+/* GLOBAL TEXT CONSTRAINT
+   Since we widened the page margin to 0.5in, we must manually force 
+   the text to stop at 6in wide (standard screenplay width). 
+   This ensures text doesn't flow into the area reserved for numbers. */
+h1, h5, p {
+    max-width: 6in;
+}
+
 /* Scene Heading (h1) */
 h1 {
     text-transform: uppercase;
     font-weight: bold;
-    margin-top: 2em;     /* Double space before scene heading */
-    margin-bottom: 1em;  /* Single space after */
+    margin-top: 2em;
+    margin-bottom: 1em;
     margin-left: 0;
     counter-increment: scene;
     position: relative;
-    max-width: 6in;      /* Keeps the heading from hitting the page number */
     display: block;
     min-height: 1em;
 }
@@ -63,10 +77,16 @@ h1:empty::before {
 h1::after {
     content: counter(scene);
     position: absolute;
-    right: -1in;         /* Positions number in the right margin */
+    
+    /* CHANGE: Position relative to the text block, not the page edge.
+       Text ends at 6in. We place the number at 6.1in.
+       This puts it in the empty "gutter" we created. */
+    left: 6.1in;
+    right: auto;
+    
     top: 0;
     width: 0.5in; 
-    text-align: right;
+    text-align: right; /* Aligns number against the invisible 6.6in line */
     font-weight: normal;
     text-transform: none;
 }
@@ -81,23 +101,21 @@ p {
     margin-left: 0;
     margin-top: 1em;
     margin-bottom: 1em;
-    max-width: 6in;
     text-align: left;
 }
 
 /* Character Name (h2) */
-/* Industry Standard: ~3.7" from left edge.
-   Since our Page Margin is 1.5", we indent 2.2" (1.5 + 2.2 = 3.7) */
+/* Indent 2.2" (1.5 + 2.2 = 3.7) */
 h2 {
     text-transform: uppercase;
     margin-left: 2.2in; 
     margin-top: 1em;
     margin-bottom: 0;
+    max-width: 6in; /* Safety constraint */
 }
 
 /* Dialogue (h3) */
-/* Industry Standard: ~2.5" from left edge.
-   Indent 1.0" (1.5 + 1.0 = 2.5). Max width ~3.5" */
+/* Indent 1.0" (1.5 + 1.0 = 2.5). Max width ~3.5" */
 h3 {
     text-transform: none;
     font-weight: normal;
@@ -109,14 +127,14 @@ h3 {
 }
 
 /* Parenthetical (h4) */
-/* Industry Standard: ~3.1" from left edge.
-   Indent 1.6" (1.5 + 1.6 = 3.1) */
+/* Indent 1.6" (1.5 + 1.6 = 3.1) */
 h4 {
     text-transform: none;
     font-weight: normal;
     margin-left: 1.6in;
     margin-top: 0;
     margin-bottom: 0;
+    max-width: 3.5in; /* Safety constraint */
 }
 
 h4::before { content: "("; }
@@ -129,7 +147,6 @@ h5 {
     margin-top: 1em;
     margin-bottom: 1em;
     margin-right: 0;
-    max-width: 6in; /* Ensures it stays within action bounds */
 }
 
 /* Title Page Blockquote */
@@ -169,14 +186,16 @@ pre {
    ========================================================= */
 
 @media print {
-    /* Define the physical paper size and margins here.
-       This tells the PDF engine exactly where the safe print area is. */
     @page {
         size: letter;
         margin-top: 1in;
         margin-bottom: 1in;
-        margin-left: 1.5in;  /* The critical screenplay left margin */
-        margin-right: 1.0in;
+        margin-left: 1.5in;
+        
+        /* CHANGE: Reduced print margin to 0.5in.
+           This tells the printer/PDF to print closer to the right edge,
+           allowing the Page Number header to sit in that space. */
+        margin-right: 0.5in;
     }
 
     html, body {
@@ -184,40 +203,38 @@ pre {
         margin: 0 !important;
         padding: 0 !important;
         background: transparent !important;
-        /* Ensure font size is not scaled by browser settings */
         -webkit-text-size-adjust: 100%; 
     }
 
-    /* CRITICAL FIX: Reset the #write container for print */
     #write {
         width: auto !important;
         max-width: none !important;
         margin: 0 !important;
-        padding: 0 !important; /* Remove padding, @page handles margins now */
+        padding: 0 !important;
         border: none !important;
-        transform: none !important; /* Prevent Typora zoom interference */
+        transform: none !important; 
         overflow: visible !important;
     }
 
+    /* Force text constraints in Print */
+    p, h1, h2, h3, h4, h5, blockquote {
+        max-width: 6in !important;
+    }
+
     /* Page Numbers */
-    /* Typora often handles headers/footers in export settings, 
-       but we can enforce placement here if supported */
     #write::before {
-        content: none; /* Hide screen-only page counters */
+        content: none; 
     }
 
     /* Scene Numbering Adjustment for Print */
-    /* Because #write padding is gone, the absolute positioning 
-       relative to h1 might need ensuring h1 is contained */
     h1 {
-        /* Ensure h1 is still reference context if needed */
         position: relative;
     }
 
     h1::after {
-        /* In print, 'right: -1in' pushes it into the right page margin (1.0in).
-           This is standard for scene numbers. */
-        right: -1in; 
+        /* Ensure Scene Numbers print in the gutter to the right of text */
+        right: auto;
+        left: 6.1in; 
     }
 
     /* Formatting protections */
@@ -231,11 +248,10 @@ pre {
         break-before: avoid; 
     }
     
-    /* Ensure title page break works */
     hr {
         page-break-after: always;
         break-after: always;
         border: none;
-        visibility: hidden; /* Hide the visual line in print, just keep the break */
+        visibility: hidden; 
     }
 }

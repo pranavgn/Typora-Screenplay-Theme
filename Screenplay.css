@@ -1,80 +1,164 @@
+/* Typora Screenplay Theme - Industry Standard Format */
+
 body {
     font-size: 12pt;
-    font-family: "Courier Screenplay", monospace;
-    font-weight: lighter;
-    padding-left: 1.5in;
-    padding-right: 1.5in;
-    line-height: 1.1;
+    font-family: "Courier Screenplay", "Courier New", "Courier", monospace;
+    font-weight: normal;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
 }
 
 #write {
-    overflow-x: auto;
+    max-width: none;
+    width: 8.5in;
+    margin: 0 auto;
+    padding-top: 1in;
+    padding-bottom: 1in;
+    padding-left: 1.5in;
+    padding-right: 1.25in; 
+    min-height: 11in;
+    box-sizing: border-box;
+}
+
+/* Reset margins for all elements */
+h1, h2, h3, h4, h5, h6, p, blockquote {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 12pt;
+    line-height: 1;
+}
+
+/* Scene Heading (h1) - Bold, uppercase, left-aligned with right-side numbering */
+h1 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    counter-increment: scene;
+    position: relative;
+    max-width: 6in;
+    display: block;
+    min-height: 1em;
+}
+
+h1:empty::before {
+    content: "\200B";
+}
+
+h1::after {
+    content: counter(scene);
+    position: absolute;
+    right: -1in;
+    top: 0;
+    width: 0.5in; 
+    text-align: right;
+    font-weight: normal;
+    text-transform: none;
+}
+
+/* Reset scene counter at start */
+html {
+    counter-reset: scene;
+}
+
+#write {
+    counter-reset: scene;
+}
+
+/* Action (normal paragraph) */
+p {
+    margin-left: 0;
+    margin-top: 1em;
+    margin-bottom: 1em;
     max-width: 6in;
 }
 
-/* Slugline / scene header */
-h1, h2, h3 {
-    font-size: 100%;
-    text-transform: uppercase;
-}
-
-/* This is the dialog actor names */
+/* Character Name (h2) - 3.7 inches from left margin */
 h2 {
-    margin-left: 2.0in;
     text-transform: uppercase;
-    font-weight: normal;
+    margin-left: 2.2in; /* 3.7in - 1.5in base padding */
     margin-top: 1em;
     margin-bottom: 0;
 }
 
-/* Dialogue */
-h2 + blockquote, h2 + p + blockquote {
-    margin-left: 1.0in;
-    max-width: 3in;
-    margin-top: 0;
-    margin-bottom: 2em;
-}
-
-blockquote, p { margin-top: 0; }
-
-/* Parantheticals */
-h2 + p {
-    text-transform: lowercase;
-    margin-left: 2.0in;
-    margin-top: 0;
-}
-
-/* Transition */
+/* Dialogue (h3) - 2.5 inches from left, 2.5 inches from right */
 h3 {
-    text-align: right;
+    text-transform: none;
     font-weight: normal;
+    margin-left: 1in;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 1em;
+    max-width: 3.5in;
 }
 
-pre {
-    min-height: 1rem;
-    padding: .5rem 1rem;
-    background-color: #f8f8f8;
-    overflow: scroll;
+/* Parenthetical (h4) - 3.1 inches from left with automatic parentheses */
+h4 {
+    text-transform: none;
+    font-weight: normal;
+    margin-left: 1.6in; /* 3.1in - 1.5in base padding */
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
+h4::before {
+    content: "(";
+}
+
+h4::after {
+    content: ")";
+}
+
+/* Transition (h5) - Right-aligned, uppercase */
+h5 {
+    text-transform: uppercase;
+    text-align: right;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 0;
+}
+
+/* Block Quote - Title Page formatting (centered) */
+blockquote {
+    text-align: center;
+    margin: 3in auto;
+    max-width: 4in;
+    page-break-after: always;
+    break-after: always;
+}
+
+blockquote p {
+    text-align: center;
+    margin: 1em auto;
+    max-width: 100%;
+}
+
+/* Horizontal Rule - Page break */
+hr {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 2em 0;
+    page-break-after: always;
+    break-after: always;
+}
+
+/* Links */
 a {
     text-decoration: none;
     color: inherit;
-    
     white-space: pre-wrap;
     overflow-wrap: break-word;
     word-wrap: break-word;
-
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
+/* Images */
 img {
     max-width: 100%;
     height: auto;
@@ -86,14 +170,7 @@ figcaption {
     font-style: italic;
 }
 
-hr {
-    border: none;
-    border-top: 1px solid #333;
-    margin: 2em 0;
-    page-break-after: always;
-    break-after: always;
-}
-
+/* Task Lists */
 .task-list-item {
     list-style-type: none;
 }
@@ -103,15 +180,83 @@ hr {
     margin-right: 8px;
 }
 
+/* Code blocks */
+pre {
+    min-height: 1rem;
+    padding: .5rem 1rem;
+    background-color: #f8f8f8;
+    overflow: auto;
+    font-family: "Courier Screenplay", "Courier New", "Courier", monospace;
+}
+
+/* Print Styles */
 @media print {
     html {
         background: transparent !important;
         padding: 0;
     }
-
-    @page {
-        size: A4 portrait;
-        margin-top: 1.5in;
-        margin-bottom: 1.5in;
+    
+    body {
+        margin: 0;
+        padding: 0;
     }
+    
+    @page {
+        size: 8.5in 11in;
+        margin-top: 1in;
+        margin-bottom: 1in;
+        margin-left: 1.5in;
+        margin-right: 1.25in; 
+        
+        @top-right {
+            content: counter(page);
+            font-family: "Courier Screenplay", "Courier New", "Courier", monospace;
+            font-size: 12pt;
+        }
+    }
+    
+    /* Hide page number on first page */
+    @page :first {
+        @top-right {
+            content: none;
+        }
+    }
+    
+    #write {
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+    }
+    
+    h1::after {
+        right: 0.25in;
+        top: 0;
+        position: absolute;
+        width: auto;
+        text-align: right;
+    }
+
+    /* Prevent orphaned character names */
+    h2 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+    
+    /* Prevent orphaned parentheticals */
+    h4 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+    
+    /* Keep dialogue with character name */
+    h3 {
+        page-break-before: avoid;
+        break-before: avoid;
+    }
+}
+
+/* Page counter for screen display */
+#write::before {
+    content: "";
+    counter-reset: page;
 }

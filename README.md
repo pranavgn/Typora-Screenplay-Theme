@@ -167,4 +167,4 @@ Created by Pranav Nair
 
 v2.0 of the Screenplay Theme.
 
-*Note: This README was enhanced using AI assistance.*
+*Note: README and comments were enhanced using AI assistance.*
